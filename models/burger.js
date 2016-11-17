@@ -1,29 +1,23 @@
-var orm = require('../config/orm.js');
+"use strict";
 
-var burger = {
-  all: function(callback){
-    orm.selectAll("burgers" , function(res){
-      callback(res);
-    });
-  },
+module.exports = function(sequelize, DataTypes) {
+  var Burger = sequelize.define("Burger", {
+    name: DataTypes.STRING,
+    devoured: { type: DataTypes.BOOLEAN, defaultValue: false }
+  }, {
+    
+    underscored: true,
 
-  create: function(callback){
-    orm.insertOne("burgers", cols, vals, function (res){
-      callback(res);
-    });
-  },
+    freezeTableName: true,
 
-  update: function(objColVals, condition, callback){
-    orm.updateOne("burgers", objColVals, condition, function (res){
-      callback(res);
-    });
-  },
-  delete: function(conditionVal, callback){
-    orm.deleteOne('burgers', 'id', conditionVal, function(res){
-      callback(res);
-    });
-  }
+    // define the table's name
+    tableName: 'bugers',
 
+    classMethods: {
+      associate: function(models) {
+        }
+    }
+  });
+
+  return Burger;
 };
-
-module.exports = burger;
